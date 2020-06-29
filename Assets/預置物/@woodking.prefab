@@ -903,9 +903,10 @@ GameObject:
   - component: {fileID: 3380840370752632414}
   - component: {fileID: 9122258101919554276}
   - component: {fileID: 3917372379060472006}
+  - component: {fileID: 9039426770955415999}
   m_Layer: 0
   m_Name: '@woodking'
-  m_TagString: Untagged
+  m_TagString: King
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -973,8 +974,22 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &9039426770955415999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6758431284096936320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62322ec40acd9e24bb48c3f989cb0fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 3
+  TotalHP: 300
 --- !u!1 &7257809167001957065
 GameObject:
   m_ObjectHideFlags: 0

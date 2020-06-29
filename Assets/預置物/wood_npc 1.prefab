@@ -1047,9 +1047,10 @@ GameObject:
   - component: {fileID: 395614511517965469}
   - component: {fileID: 5818487688759682499}
   - component: {fileID: 5121778872955853622}
+  - component: {fileID: -2085124330365537373}
   m_Layer: 0
   m_Name: wood_npc 1
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1119,6 +1120,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-2085124330365537373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528810932846725320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62322ec40acd9e24bb48c3f989cb0fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 3
+  TotalHP: 100
 --- !u!1 &8733945762967914513
 GameObject:
   m_ObjectHideFlags: 0

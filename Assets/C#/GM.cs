@@ -14,6 +14,10 @@ public class GM : MonoBehaviour
     public int MaxNum;
     // 目前在場景已經產出多少數量
     int Num;
+    [Header("King物件")]
+    public GameObject King;
+    // NPC死亡的數量
+    public int DeadNum;
 
     // Start is called before the first frame update
     void Start()
@@ -42,5 +46,16 @@ public class GM : MonoBehaviour
             // 生成後數量+1
             Num++;
         }
+
+        // 如果npc死亡數量=每個關卡Npc的最多數量
+        // 場景上沒有任何一隻King
+        if(DeadNum == MaxNum && GameObject.FindGameObjectsWithTag("King").Length <= 0)
+        {
+            Instantiate(King, CreatePos.transform.position, CreatePos.transform.rotation);
+        }
+    }
+    public void DeadCount()
+    {
+        DeadNum++;
     }
 }
