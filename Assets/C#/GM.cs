@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GM : MonoBehaviour
 {
+    #region 生成怪物
     [Header("怪物事件")]
     public GameObject NPC;
     [Header("產生怪物的方塊")]
@@ -11,24 +14,85 @@ public class GM : MonoBehaviour
     [Header("Npc多久產出")]
     public float WaitTime;
     [Header("每個關卡Npc的最多數量")]
-    public int MaxNum;
+    public float MaxNum;
     // 目前在場景已經產出多少數量
     int Num;
     [Header("King物件")]
     public GameObject King;
     // NPC死亡的數量
-    public int DeadNum;
+    public float DeadNum;
+    #endregion
+    #region 遊戲暫停畫面
+    public GameObject PauseObject;
 
+    #endregion
+    #region 怪物死亡條
+    public Image MonsterBar;
+    #endregion
+    #region 信仰條
+    [Header("放入信仰條UI圖")]
+    public Image MagicBar;
+    [Header("設定信仰條全滿的時間")]
+    public float MagicTime;
+    // 在程式中計算法術條時間
+    public float MagicTimeScript;
+    #endregion
+    #region Level
+    [Header("輸入目前的關卡")]
+    public string LevelIDString;
+    //抓取關卡字串轉成整數值
+    int LevelID;
+    [Header("關卡個位數與十位數Image位置")]
+    public Image[] LevelImage;
+    [Header("0~9數字圖片")]
+    public Sprite[] NumberSprite;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
+        // 恢復整體遊戲時間
+        Time.timeScale = 1;
         InvokeRepeating("CreateNpc", WaitTime, WaitTime);
+
+        #region 第一種-計算Level數值與顯示
+        //將字串轉化成整數值
+        LevelID = int.Parse(LevelIDString);
+        //十位數
+        int a = LevelID / 10;
+        //個位數
+        int b = LevelID % 10;
+        //將個位數的圖片帶入個位數欄位
+        LevelImage[0].sprite = NumberSprite[b];
+        //將十位數的圖片帶入十位數欄位
+        LevelImage[1].sprite = NumberSprite[a];
+
+        #endregion
+        #region 第二種-計算Level數值與顯示
+        /*//將字串裡面的數值切割(用底線_區隔)直接存在字串陣列
+        string[] TotalLevelIDString = LevelIDString.Split('_');
+        //將字串陣列裡面的文字轉成數值帶入圖片
+        LevelImage[0].sprite = NumberSprite[int.Parse(TotalLevelIDString[1])];
+        LevelImage[1].sprite = NumberSprite[int.Parse(TotalLevelIDString[0])];*/
+        #endregion
+        #region 第三種-計算Level數值與顯示
+        /*LevelImage[0].sprite = NumberSprite[int.Parse(LevelIDString.Substring(1,1))];
+        LevelImage[1].sprite = NumberSprite[int.Parse(LevelIDString.Substring(0,1))];
+        print(int.Parse(LevelIDString.Substring(0, 1)));
+        print(int.Parse(LevelIDString.Substring(0, 2)));
+        print(int.Parse(LevelIDString.Substring(1, 1)));
+        print(int.Parse(LevelIDString.Substring(1, 2)));*/
+        #endregion
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // 程式中計算法術條時間一直累加
+        MagicTimeScript += Time.deltaTime;
+        // 程式中計算的法術條時間介於0~MagicTime之間
+        MagicTimeScript = Mathf.Clamp(MagicTimeScript, 0, MagicTime);
+        // 將法術條的時間反應在MagicBar上
+        MagicBar.fillAmount = MagicTimeScript / MagicTime;
     }
 
     void CreateNpc()
@@ -57,5 +121,26 @@ public class GM : MonoBehaviour
     public void DeadCount()
     {
         DeadNum++;
+        MonsterBar.fillAmount = (MaxNum - DeadNum) / MaxNum;
+    }
+
+    // 遊戲暫停畫面
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        PauseObject.SetActive(true);
+    }
+    // 恢復遊戲畫面
+    public void ReturnGame()
+    {
+        // 恢復整體遊戲時間
+        Time.timeScale = 1;
+        PauseObject.SetActive(false);
+    }
+    // 回首頁
+    public void BackMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu");
     }
 }

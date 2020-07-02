@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -22,9 +23,29 @@ public class Player : MonoBehaviour
     public GameObject ArrowPos;
     #endregion
 
-    private void Start()
+    #region 玩家血量
+    [Header("設定玩家總血量")]
+    public float TotalHP;
+    // 程式中計算玩家血量
+    float ScriptHP;
+    // 玩家的血條
+    public Image HPBar;
+    #endregion
+    #region 玩家大絕招
+    [Header("大絕招的Bar條")]
+    public Image MagicBar;
+    // 判斷是否已經點擊大絕招按鈕
+    public bool CanCreateMagic;
+    [Header("大絕招的物件")]
+    public GameObject MargicObject;
+    // 儲存動態生成出來大絕招物件
+    GameObject MagicObjectPrefab;
+    #endregion
+
+    void Start()
     {
-        
+        // 程式中的血量 = 屬性面板中設定的血量數值
+        ScriptHP = TotalHP;
     }
 
     private void Update()
@@ -45,12 +66,28 @@ public class Player : MonoBehaviour
                 {
                     // 將射線打到的位置點帶入targetPos，只要記錄xz平面的座標值
                     targetPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-                    // 使用數學內插法，讓玩家從A點慢慢轉向至B點，如果沒有使用內插法，玩家會馬上從A點跳到B點，不會慢慢轉向
-                    LookPos = Vector3.Lerp(LookPos, targetPos, Time.deltaTime * 10);
-                    // 讓玩家注視內插法的座標點
-                    transform.LookAt(LookPos);
-                    // 玩家進行攻擊
-                    GetComponent<Animator>().SetBool("Att", true);
+                    // 如果還沒按下大絕招的按鈕
+                    if (!CanCreateMagic)
+                    {
+                        // 使用數學內插法，讓玩家從A點慢慢轉向至B點，如果沒有使用內插法，玩家會馬上從A點跳到B點，不會慢慢轉向
+                        LookPos = Vector3.Lerp(LookPos, targetPos, Time.deltaTime * 10);
+                        // 讓玩家注視內插法的座標點
+                        transform.LookAt(LookPos);
+                        // 玩家進行攻擊
+                        GetComponent<Animator>().SetBool("Att", true);
+                    }
+                    // 如果按下大絕招的按鈕
+                    else
+                    {
+                        // 目前場景上沒有任何大絕招的物件
+                        if (MagicObjectPrefab == null)
+                            // 動態生成大絕招的物件
+                            MagicObjectPrefab = Instantiate(MargicObject) as GameObject;
+                        // 如果Dragon的重力沒有被開啟 才可以移動Dragon
+                        if(!MagicObjectPrefab.GetComponentInChildren<Rigidbody>().useGravity)
+                            // 大絕招的物件位置=滑鼠位置
+                            MagicObjectPrefab.transform.position = targetPos;
+                    }
                 }
             }
         }
@@ -60,11 +97,30 @@ public class Player : MonoBehaviour
             // 如果沒有按下滑鼠左鍵，玩家無法進行攻擊動作
             GetComponent<Animator>().SetBool("Att", false);
         }
+        //
+        if(Input.GetMouseButtonUp(0) && CanCreateMagic)
+        {
+            MagicObjectPrefab.GetComponentInChildren<Rigidbody>().useGravity = true;
+        }
     }
 
     // 產生法術物件
     public void CreateArrow()
     {
         Instantiate(Arrow, ArrowPos.transform.position, ArrowPos.transform.rotation);
+    }
+    // 玩家被怪物攻擊扣血
+    public void HurtPlayerHP(float Hurt)
+    {
+        ScriptHP -= Hurt;
+        HPBar.fillAmount = ScriptHP / TotalHP;
+    }
+    // 滑鼠或是手指點下大絕招的按鈕位置
+    public void PointerDownMagic()
+    {
+        if (MagicBar.fillAmount == 1)
+        {
+            CanCreateMagic = true;
+        }
     }
 }
