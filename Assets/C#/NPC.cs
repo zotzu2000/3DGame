@@ -56,6 +56,14 @@ public class NPC : MonoBehaviour
             ScriptSpeed = 0;
             GetComponent<Collider>().enabled = false;
             GameObject.Find("GM").GetComponent<GM>().DeadCount();
+            //如果怪物的標籤為NPC 分數顯示+20
+            if (gameObject.tag == "NPC")
+                GameObject.Find("GM").GetComponent<GM>().FinalScore(20);
+            //Boss分數+100
+            else
+                GameObject.Find("GM").GetComponent<GM>().FinalScore(100);
+                GameObject.Find("GM").GetComponent<GM>().isWin = true;
+                GameObject.Find("GM").GetComponent<GM>().GameOver(1000);
         }
     }
 

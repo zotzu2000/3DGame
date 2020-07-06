@@ -619,79 +619,6 @@ Transform:
   m_Father: {fileID: 976055981}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
---- !u!1 &336638484
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 336638485}
-  - component: {fileID: 336638487}
-  - component: {fileID: 336638486}
-  m_Layer: 5
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &336638485
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336638484}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 391718600}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &336638486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336638484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c18628a9434bc294a985cf689e94cf4c, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &336638487
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336638484}
-  m_CullTransparentMesh: 0
 --- !u!1 &391718599
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,8 +646,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 336638485}
+  m_Children: []
   m_Father: {fileID: 42123767}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3375,7 +3301,7 @@ MonoBehaviour:
   NPC: {fileID: 8528810932846725320, guid: 1594fbd2d89a1de4cb675df19900d9b2, type: 3}
   CreatePos: {fileID: 768525573}
   WaitTime: 1
-  MaxNum: 50
+  MaxNum: 20
   King: {fileID: 6758431284096936320, guid: a8f8214054d00c449abb03122b7b2595, type: 3}
   DeadNum: 0
   PauseObject: {fileID: 1223860134}
@@ -3383,7 +3309,7 @@ MonoBehaviour:
   MagicBar: {fileID: 1647069333}
   MagicTime: 5
   MagicTimeScript: 0
-  LevelIDString: 25
+  LevelIDString: 01
   LevelImage:
   - {fileID: 557961042}
   - {fileID: 2056510684}
@@ -3398,6 +3324,27 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 84b481550494d1e44b1db77b5adc4396, type: 3}
   - {fileID: 21300000, guid: e0468509645eb704fbd42a038e34e0ec, type: 3}
   - {fileID: 21300000, guid: f0bcc30baef5d304fb6631877f3255a3, type: 3}
+  ScoreObject: {fileID: 1933529637120104319, guid: ac838bfaa21d17f40a7dac5da3d60bb0,
+    type: 3}
+  ScoreGridObject: {fileID: 391718599}
+  ScoreImage: []
+  isWin: 0
+  GameOverUI: {fileID: 842051863}
+  WinSprite: {fileID: 21300000, guid: 8fabe876cb57e374ba5ebd15c5901362, type: 3}
+  LoseSprite: {fileID: 21300000, guid: 6517fd96182ffbf4fae12481f8ece095, type: 3}
+  WinSprie: {fileID: 61231403}
+  GameOverLevelImage:
+  - {fileID: 1253660789}
+  - {fileID: 651864376}
+  RewardScoreObject: {fileID: 1933529637120104319, guid: ac838bfaa21d17f40a7dac5da3d60bb0,
+    type: 3}
+  RewardScoreGridObject: {fileID: 1122655691}
+  GameOverScoreObject: {fileID: 1933529637120104319, guid: ac838bfaa21d17f40a7dac5da3d60bb0,
+    type: 3}
+  GameOverScoreGridObject: {fileID: 1077389598}
+  RewardScoreImage: []
+  GameOverScoreImage: []
+  NextGameButton: {fileID: 2103052992}
 --- !u!4 &962090904
 Transform:
   m_ObjectHideFlags: 0
@@ -4630,7 +4577,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612987400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 962090903}
+        m_MethodName: BackMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1612987400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5262,7 +5220,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1730806640}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 962090903}
+        m_MethodName: Regame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1730806640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5281,7 +5250,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f6f854977cb91a746abb075846c45803, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bda8681cf451b641a7e158a4cfd9ca7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5865,7 +5834,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2103052993}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 962090903}
+        m_MethodName: Nextgame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2103052993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5884,7 +5864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f6f854977cb91a746abb075846c45803, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 354f4a6b668451d4183d21b4280c42b3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

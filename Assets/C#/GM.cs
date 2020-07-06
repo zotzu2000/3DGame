@@ -47,6 +47,49 @@ public class GM : MonoBehaviour
     [Header("0~9數字圖片")]
     public Sprite[] NumberSprite;
     #endregion
+    #region 遊戲分數
+    //計算玩家的得分
+    int TotalScore;
+    //儲存玩家的得分
+    string SaveTotalScore = "SaveTotalScore";
+    //將玩家的得分轉成字串
+    string TotalScoreString;
+    [Header("放入要動態生成數字的物件")]
+    public GameObject ScoreObject;
+    [Header("生成數字的父物件")]
+    public GameObject ScoreGridObject;
+    [Header("抓取所有分數的圖片")]
+    public List<Image> ScoreImage;
+    #endregion
+    #region 遊戲結束
+    //isWin=true代表勝利 false失敗
+    public bool isWin;
+    [Header("遊戲結束的UI物件")]
+    public GameObject GameOverUI;
+    [Header("遊戲結束的勝利失敗圖")]
+    public Sprite WinSprite, LoseSprite;
+    [Header("遊戲結束的勝利失敗Image")]
+    public Image WinSprie;
+    [Header("關卡個位數和十位數的Image")]
+    public Image[] GameOverLevelImage;
+    //獎勵分數
+    string RewardScoreString;
+    int GameOverScore;
+    string GameOverScoreString;
+    [Header("放入要動態生成數字的物件-獎勵")]
+    public GameObject RewardScoreObject;
+    [Header("生成數字的父物件-獎勵")]
+    public GameObject RewardScoreGridObject;
+    [Header("放入要動態生成數字的物件-遊戲結束總分")]
+    public GameObject GameOverScoreObject;
+    [Header("生成數字的父物件-遊戲結束總分")]
+    public GameObject GameOverScoreGridObject;
+    public List<Image> RewardScoreImage;
+    public List<Image> GameOverScoreImage;
+    #endregion
+    #region 遊戲結束的按鈕
+    public Button NextGameButton;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +125,8 @@ public class GM : MonoBehaviour
         print(int.Parse(LevelIDString.Substring(1, 1)));
         print(int.Parse(LevelIDString.Substring(1, 2)));*/
         #endregion
+        //遊戲一開始沒有任何加總分
+        FinalScore(0);
     }
 
     // Update is called once per frame
@@ -142,5 +187,93 @@ public class GM : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
+    }
+    //怪物或Boss死亡要顯示分數
+    public void FinalScore(int AddScore)
+    {
+        //怪物或Boss死亡，加分
+        TotalScore += AddScore;
+        //Debug.Log(TotalScore);
+        //總分整數值轉化為字串
+        TotalScoreString = TotalScore + "";
+        //儲存總分數
+        PlayerPrefs.SetInt(SaveTotalScore, TotalScore);
+        //抓取字串總共有多少字數量=字串.Length
+        //看List總數量在生成對應的Image數量在空物件下
+        for(int i = ScoreImage.Count; i < TotalScoreString.Length; i++)
+        {
+            //動態生成Image
+            GameObject ScoreObjectPrefab = Instantiate(ScoreObject) as GameObject;
+            //將生成出來Image移動到空物件階層下
+            ScoreObjectPrefab.transform.parent = ScoreGridObject.transform;
+            //抓取動態生成物件的Image存放在list
+            ScoreImage.Add(ScoreObjectPrefab.GetComponent<Image>());
+        }
+        //將每個Image帶入數字圖片
+        for(int spritID = 0; spritID < TotalScoreString.Length; spritID++)
+        {
+            ScoreImage[spritID].sprite = NumberSprite[int.Parse(TotalScoreString.Substring(spritID, 1))];
+        }
+    }
+    //Boss/玩家死亡
+    public void GameOver(int RewardScore)
+    {
+        GameOverUI.SetActive(true);
+        Time.timeScale = 0;
+        if (isWin)
+        {
+            WinSprie.sprite = WinSprite;
+            NextGameButton.interactable = true;
+        }
+        else
+        {
+            WinSprie.sprite = LoseSprite;
+            NextGameButton.interactable = false;
+        }
+        //遊戲結束Level
+        GameOverLevelImage[0].sprite = NumberSprite[int.Parse(LevelIDString.Substring(1, 1))];
+        GameOverLevelImage[1].sprite = NumberSprite[int.Parse(LevelIDString.Substring(0, 1))];
+        //遊戲結束總分=遊戲分數+獎勵分數;
+        GameOverScore = TotalScore + RewardScore;
+        GameOverScoreString = GameOverScore + "";
+        RewardScoreString = RewardScore + "";      
+        for (int i = RewardScoreImage.Count; i < RewardScoreString.Length; i++)
+        {
+            //動態生成Image
+            GameObject RewardScorePrefab = Instantiate(ScoreObject) as GameObject;
+            //將生成出來Image移動到空物件階層下
+            RewardScorePrefab.transform.parent = RewardScoreGridObject.transform;
+            //抓取動態生成物件的Image存放在list
+            RewardScoreImage.Add(RewardScorePrefab.GetComponent<Image>());
+        }
+        //將每個Image帶入數字圖片
+        for (int spritID = 0; spritID < RewardScoreString.Length; spritID++)
+        {
+            RewardScoreImage[spritID].sprite = NumberSprite[int.Parse(RewardScoreString.Substring(spritID, 1))];
+        }
+        for (int i_g = GameOverScoreImage.Count; i_g < GameOverScoreString.Length; i_g++)
+        {
+            //動態生成Image
+            GameObject GameOverScorePrefab = Instantiate(ScoreObject) as GameObject;
+            //將生成出來Image移動到空物件階層下
+            GameOverScorePrefab.transform.parent = GameOverScoreGridObject.transform;
+            //抓取動態生成物件的Image存放在list
+            GameOverScoreImage.Add(GameOverScorePrefab.GetComponent<Image>());
+        }
+        //將每個Image帶入數字圖片
+        for (int spritID_g = 0; spritID_g < GameOverScoreString.Length; spritID_g++)
+        {
+            GameOverScoreImage[spritID_g].sprite = NumberSprite[int.Parse(GameOverScoreString.Substring(spritID_g, 1))];
+        }
+    }
+    //重新遊戲
+    public void Regame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+    //下一關
+    public void Nextgame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

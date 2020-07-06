@@ -114,6 +114,12 @@ public class Player : MonoBehaviour
     {
         ScriptHP -= Hurt;
         HPBar.fillAmount = ScriptHP / TotalHP;
+        //如果玩家死亡，遊戲失敗
+        if (HPBar.fillAmount == 0)
+        {
+            GameObject.Find("GM").GetComponent<GM>().isWin = false;
+            GameObject.Find("GM").GetComponent<GM>().GameOver(10);
+        }
     }
     // 滑鼠或是手指點下大絕招的按鈕位置
     public void PointerDownMagic()
