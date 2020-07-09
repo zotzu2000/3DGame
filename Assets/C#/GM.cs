@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using OfficeOpenXml;
+using System.IO;
+using System.Data;
+using Excel;
+using UnityEditor;
 
 public class GM : MonoBehaviour
 {
@@ -265,6 +270,11 @@ public class GM : MonoBehaviour
         {
             GameOverScoreImage[spritID_g].sprite = NumberSprite[int.Parse(GameOverScoreString.Substring(spritID_g, 1))];
         }
+        //將資料寫入至Excel表單
+        ExcelWritter.ansList.Add(LevelIDString);
+        ExcelWritter.ansList.Add(GameOverScoreString);
+        //寫入Excel檔名與表單名稱
+        ExcelWritter.WriteExcel("SaveData", "Data");
     }
     //重新遊戲
     public void Regame()
